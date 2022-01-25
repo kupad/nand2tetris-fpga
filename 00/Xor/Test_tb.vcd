@@ -1,0 +1,72 @@
+$date
+	Wed Jul  1 14:56:06 2020
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module Test_tb $end
+$var wire 1 ! out $end
+$var reg 1 " a $end
+$var reg 1 # b $end
+$var integer 32 $ file [31:0] $end
+$scope module XOR $end
+$var wire 1 " a $end
+$var wire 1 # b $end
+$var wire 1 ! out $end
+$var wire 1 % nand3 $end
+$var wire 1 & nand2 $end
+$var wire 1 ' nand1 $end
+$scope module NAND $end
+$var wire 1 ! out $end
+$var wire 1 % b $end
+$var wire 1 & a $end
+$upscope $end
+$scope module NAND1 $end
+$var wire 1 " a $end
+$var wire 1 # b $end
+$var wire 1 ' out $end
+$upscope $end
+$scope module NAND2 $end
+$var wire 1 " a $end
+$var wire 1 ' b $end
+$var wire 1 & out $end
+$upscope $end
+$scope module NAND3 $end
+$var wire 1 ' a $end
+$var wire 1 # b $end
+$var wire 1 % out $end
+$upscope $end
+$upscope $end
+$scope task display $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+1'
+1&
+1%
+b10000000000000000000000000000011 $
+0#
+0"
+0!
+$end
+#1
+1!
+0%
+1#
+#2
+1%
+0&
+0#
+1"
+#3
+0!
+1&
+0'
+1%
+1#
+#4

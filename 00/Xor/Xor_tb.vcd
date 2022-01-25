@@ -1,0 +1,57 @@
+$date
+	Sat Jan 22 21:36:50 2022
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ps
+$end
+$scope module Xor_tb $end
+$var wire 1 ! out $end
+$var reg 1 " a $end
+$var reg 1 # b $end
+$var integer 32 $ file [31:0] $end
+$scope module XOR $end
+$var wire 1 " a $end
+$var wire 1 # b $end
+$var wire 1 % nota $end
+$var wire 1 & notb $end
+$var wire 1 ! out $end
+$var wire 1 ' x $end
+$var wire 1 ( y $end
+$upscope $end
+$scope task display $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+0(
+0'
+1&
+1%
+b10000000000000000000000000000011 $
+0#
+0"
+0!
+$end
+#1
+1!
+0&
+1(
+1#
+#2
+1'
+1!
+1&
+0(
+0%
+0#
+1"
+#3
+0!
+0'
+0&
+1#
+#4
