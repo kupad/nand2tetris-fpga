@@ -42,7 +42,6 @@ module ALU(
     wire [15:0] zya;
     wire [15:0] yy;
     wire [15:0] fa;
-    wire [15:0] ans;
 
     //x
     assign zxa = zx ? 0 : x;
@@ -55,12 +54,9 @@ module ALU(
     //fa
     assign fa = f ? (xx + yy) : (xx & yy);
 
-    //ans
-    assign ans = no ? ~fa : fa;
-
-    //outputs
-    assign zr = ans == 0 ? 1 : 0;
-    assign ng = ans[15]; // negative if MSB is 1
-    assign out = ans;
+    //out
+    assign out = no ? ~fa : fa;
+    assign zr = out == 0 ? 1 : 0;
+    assign ng = out[15]; // negative if MSB is 1
 
 endmodule
