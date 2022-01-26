@@ -35,10 +35,32 @@ module ALU(
     output wire zr, 			// 1 if (out == 0), 0 otherwise
     output wire ng 			// 1 if (out < 0),  0 otherwise
 );
+    // your implementation comes here:
 
-// your implementation comes here:
+    wire [15:0] zxa;
+    wire [15:0] xx;
+    wire [15:0] zya;
+    wire [15:0] yy;
+    wire [15:0] fa;
+    wire [15:0] ans;
 
+    //x
+    assign zxa = zx ? 0 : x;
+    assign xx = nx ? ~zxa : zxa;
 
+    //y
+    assign zya = zy ? 0 : y;
+    assign yy = ny ? ~zya : zya;
 
+    //fa
+    assign fa = f ? (xx + yy) : (xx & yy);
+
+    //ans
+    assign ans = no ? ~fa : fa;
+
+    //outputs
+    assign zr = ans == 0 ? 1 : 0;
+    assign ng = ans[15] == 1 ? 1 : 0;
+    assign out = ans;
 
 endmodule
