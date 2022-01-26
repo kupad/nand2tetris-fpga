@@ -60,7 +60,7 @@ module ALU(
 
     //outputs
     assign zr = ans == 0 ? 1 : 0;
-    assign ng = ans[15] == 1 ? 1 : 0;
+    assign ng = ans[15]; // negative if MSB is 1
     assign out = ans;
 
 endmodule
