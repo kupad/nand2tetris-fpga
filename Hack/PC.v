@@ -19,18 +19,17 @@ module PC(
 	output wire [15:0] out
 );	
 
-    reg [15:0] curr = 0, next = 0;
+    reg [15:0] pc = 16'hFFFF;
     always @(negedge clk) begin
-        curr <= next;
         if (reset)
-            next <= 0;
+            pc <= 0;
         else if(load) 
-            next <= in;
+            pc <= in;
         else if (inc)
-            next <= next + 1;
+            pc <= pc + 1;
         else
-            next <= next;
+            pc <= pc;
     end
-    assign out = curr;
+    assign out = pc;
 
 endmodule

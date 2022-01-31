@@ -12,8 +12,11 @@ module Register(
 	input load,
 	output [15:0] out
 );
-
-
-
+    
+    reg out = 0;
+    always @(negedge clk) begin
+        if (load)
+            out <= in;
+    end
 
 endmodule
