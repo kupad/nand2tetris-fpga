@@ -57,50 +57,78 @@ module CPU(
     	output [15:0] addressM,    // Address in data memory (of M) to read
     	output [15:0] pc         	// address of next instruction
 );
-    wire loadA, loadD;
-    wire [15:0] Aout, Dout, Ain;
+
+    /* instruction */
+
+    //instruction type
+    wire isA = ~instruction[15];
+    wire isC = instruction[15];
+
+    //comp
+    wire
+        a  = instruction[12],
+        zx = instruction[11],
+        nx = instruction[10],
+        zy = instruction[9],
+        ny = instruction[8],
+        f  = instruction[7],
+        no = instruction[6];
+    
+    //dest bits
     wire destA = instruction[5], 
          destD = instruction[4], 
          destM = instruction[3];
+
+    //jmp bits
+    wire 
+        jgt = instruction[0],
+        jeq = instruction[1],
+        jlt = instruction[2];
+    /* end instruction */
+
+    //A
+    wire loadA;
+    wire [15:0] Aout, Ain;
+
+    //D
+    wire loadD;
+    wire [15:0] Dout, Din;
+
+    //ALU
     wire [15:0] ALUy, ALUout;
-    wire lt, eq, gt;
+    wire lt, eq; 
+
+    //PC
+    wire gt = ~eq & ~lt;
     wire jmp;
     
     /* A reg */
-    assign loadA = ~instruction[15] | destA;
+    assign loadA = isA | destA;
     //If A-instruction, instruction is input else, ALUout is input
-    assign Ain = instruction[15] == 0 ? instruction : ALUout;
+    assign Ain = isA ? instruction : ALUout;
     Register RegA(.clk(clk), .in(Ain), .load(loadA), .out(Aout));
     
     /* D reg */
-    assign loadD = instruction[15] & destD;
+    assign loadD = isC & destD;
     Register RegD(.clk(clk), .in(ALUout), .load(loadD), .out(Dout));
         
 
     /* ALU */
     //Choose: is A or inM being fed to the ALU
     //0011111: x+1
-    assign ALUy = instruction[12] ? inM : Aout;
+    assign ALUy = a ? inM : Aout;
     ALU Alu(
         .x(Dout), .y(ALUy), 
-        .zx(instruction[11]), .nx(instruction[10]), .zy(instruction[9]), .ny(instruction[8]), .f(instruction[7]), .no(instruction[6]),
+        .zx(zx), .nx(nx), .zy(zy), .ny(ny), .f(f), .no(no),
         .out(ALUout), .zr(eq), .ng(lt));
         
     /* MEM */
     assign addressM = Aout;
     assign outM = ALUout;
-    assign writeM = instruction[15] & destM;
+    assign writeM = isC & destM;
 
     /* PC */
-    assign gt = ~eq & ~lt;
-
-    //jmp if:
-    //GT: instruction[0]
-    //EQ: instruction[1]
-    //LT: instruction[2]
-    assign jmp = instruction[15] & (
-        (instruction[0] & gt) | (instruction[1] & eq) | (instruction[2] & lt));
-
+    assign jmp = isC & ((jgt & gt) | (jeq & eq) | (jlt & lt));
     PC Pc(.clk(clk), .in(Aout), .load(jmp), .inc(1'b1), .reset(reset), .out(pc));
 
 
