@@ -17,10 +17,10 @@ initial begin
   $dumpfile("Hack1_tb.vcd");
   $dumpvars(0, Hack1_tb);
 
-#50 but=1;
-#50 but=2;
-#50 but=3;
-#50 but=0;
+#50 but<=1;
+#50 but<=2;
+#50 but<=3;
+#50 but<=0;
 #50
   $finish;
 end
